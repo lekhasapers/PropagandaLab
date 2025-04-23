@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BLACKBOX 01 — Decoded</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk&family=IBM+Plex+Mono&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --text: #eaeaea;
+      --accent: #d6d6d6;
+      --highlight: #ffffff;
+      --font-sans: 'Space Grotesk', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      margin: 0;
+      padding: 4rem 2rem;
+    }
+
+    .section {
+      margin-bottom: 6rem;
+    }
+
+    .horizontal-timeline {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      overflow-x: auto;
+      border-top: 1px solid var(--accent);
+      border-bottom: 1px solid var(--accent);
+      padding: 2rem 0;
+      position: relative;
+      scroll-snap-type: x mandatory;
+    }
+
+    .horizontal-timeline .point {
+      flex-shrink: 0;
+      width: 3px;
+      height: 100px;
+      background: var(--highlight);
+      position: relative;
+      scroll-snap-align: center;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+
+    .horizontal-timeline .point:hover {
+      opacity: 0.5;
+    }
+
+    .timeline-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: #999;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+    .tos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .tos-box {
+      background: #111;
+      border: 1px solid #2a2a2a;
+      padding: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      position: relative;
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .tos-box:hover {
+      background: radial-gradient(circle, #1a1a1a 0%, #111 100%);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.04);
+    }
+
+    .tos-box::before {
+      content: 'EXCERPT';
+      position: absolute;
+      top: 0.5rem;
+      right: 0.75rem;
+      font-size: 0.6rem;
+      color: #666;
+    }
+
+    .code-stack {
+      background: #121212;
+      padding: 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      border-left: 3px solid var(--accent);
+      margin: 2rem 0;
+    }
+
+    .code-comment {
+      color: #777;
+      font-style: italic;
+    }
+
+    .transliteration {
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      color: #aaa;
+      font-family: var(--font-mono);
+    }
+      .timeline-entry {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      scroll-snap-align: center;
+    }
+
+    .timeline-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: #999;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #111;
+      padding: 2rem;
+      border: 1px solid var(--accent);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text);
+      z-index: 9999;
+      max-width: 400px;
+      display: none;
+    }
+
+    .popup.show {
+      display: block;
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.75rem;
+      color: var(--accent);
+      cursor: pointer;
+    }  
+</style>
+</head>
+<body>
+
+  <div style="position: fixed; top: 2rem; right: 2rem; z-index: 1000; pointer-events: none;">
+    <h1 style="font-family: var(--font-mono); font-size: 2rem; letter-spacing: 0.05em; text-transform: lowercase; color: var(--highlight); margin: 0;">blackbox_01</h1>
+  </div>
+
+  
+
+    <section class="section">
+    <h2 style="font-family: var(--font-mono); font-size: 1.25rem; margin-bottom: 0.25rem;">// Leak Timeline</h2>
+<p style="font-family: var(--font-mono); font-size: 0.75rem; color: #777; margin-bottom: 1.5rem;">Moments where you were made vulnerable — without your permission, and often without your awareness.</p>
+    <div class="horizontal-timeline" aria-label="Leak Timeline Navigation" style="justify-content: center;">
+      <div class="timeline-entry">
+        <div class="point" title="Pegasus – 2021" aria-label="Pegasus – 2021"></div>
+        <div class="timeline-label">Pegasus</div>
+      </div>
+      <div class="timeline-entry">
+        <div class="point" title="Palantir – 2016" aria-label="Palantir – 2016"></div>
+        <div class="timeline-label">Palantir</div>
+      </div>
+      <div class="timeline-entry">
+        <div class="point" title="Cambridge Analytica – 2018" aria-label="Cambridge Analytica – 2018"></div>
+        <div class="timeline-label">Cambridge Analytica</div>
+      </div>
+      <div class="timeline-entry">
+        <div class="point" title="Clearview AI – 2020" aria-label="Clearview AI – 2020"></div>
+        <div class="timeline-label">Clearview AI</div>
+      </div>
+      <div class="timeline-entry">
+        <div class="point" title="Unlisted Leak" aria-label="Unlisted Leak"></div>
+        <div class="timeline-label">Unlisted Leak</div>
+      </div>
+    </div>
+  </section>
+    </div>
+  </section>
+
+  <section class="section">
+    
+
+    <h2 style="font-family: var(--font-mono); font-size: 1.25rem; margin-bottom: 0.25rem;">// Deconstructed Terms of Service</h2>
+<p style="font-family: var(--font-mono); font-size: 0.75rem; color: #777; margin-bottom: 1.5rem;">The things you agreed to — but were never meant to fully read, let alone understand.</p>
+    <div class="tos-grid">
+      <div class="tos-box">[ TOS Excerpt Thumbnail 1 ]</div>
+      <div class="tos-box">[ TOS Excerpt Thumbnail 2 ]</div>
+      <div class="tos-box">[ TOS Excerpt Thumbnail 3 ]</div>
+      <div class="tos-box">[ TOS Excerpt Thumbnail 4 ]</div>
+    </div>
+
+<h2 style="font-family: var(--font-mono); font-size: 1.25rem; margin: 3rem 0 0.25rem;">// Code Excerpts</h2>
+<p style="font-family: var(--font-mono); font-size: 0.75rem; color: #777; margin-bottom: 1.5rem;">What runs behind the screen — scripts that manage your data, with or without your input.</p>
+<div class="code-stack">
+  <div><span class="code-comment">// Captures mouse movement data</span></div>
+  <div>trackUser({ mouse: true, scroll: true });</div>
+  <div class="transliteration">→ You are being watched. The illusion of interactivity masks surveillance.</div>
+
+  <br />
+
+  <div><span class="code-comment">// Initializes surveillance on load</span></div>
+  <div>initSurveillance(window.location.hostname);</div>
+  <div class="transliteration">→ The first handshake is the first compromise.</div>
+
+  <br />
+
+  <div><span class="code-comment">// Unchecked toggle means full data consent</span></div>
+  <div>if (!optOutChecked) enableTracking();</div>
+  <div class="transliteration">→ Silence is interpreted as surrender.</div>
+</div>
+  </section>
+
+<div id="popup" class="popup" style="max-height: 80vh; overflow-y: auto;">
+  <div class="popup-close" onclick="closePopup()">[X]</div>
+  <div id="popup-content"></div>
+</div>
+
+<script>
+  const popup = document.getElementById("popup");
+  const popupContent = document.getElementById("popup-content");
+
+  document.querySelectorAll(".timeline-entry .point").forEach((point) => {
+    point.addEventListener("click", () => {
+      const label = point.getAttribute("title") || "Info";
+      popupContent.innerHTML = `<strong>${label}</strong><br/><br/>Placeholder information about ${label}.`;
+      popup.classList.add("show");
+    });
+  });
+
+  function closePopup() {
+    popup.classList.remove("show");
+  }
+</script>
+</body>
+</html>
