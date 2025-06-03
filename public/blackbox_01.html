@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>blackbox_01 — ad identity trace</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk&family=IBM+Plex+Mono&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --accent: #cfc3f9;
+      --font-sans: 'Space Grotesk', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      margin: 0;
+      padding: 6rem 2rem 4rem;
+    }
+    .floating-title {
+      position: fixed;
+      top: 1rem;
+      right: 2rem;
+      z-index: 1000;
+      pointer-events: none;
+      background-color: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(4px);
+      padding: 0.5rem 1rem;
+    }
+    .floating-title h1 {
+      font-family: var(--font-mono);
+      font-size: 1.75rem;
+      letter-spacing: 0.05em;
+      text-transform: lowercase;
+      margin: 0;
+      color: #000;
+    }
+    .section {
+      margin-bottom: 5rem;
+    }
+    h2 {
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
+      color: #000;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.4rem;
+    }
+    p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #111;
+      max-width: 700px;
+    }
+    .content-box {
+      background: #f7f7f7;
+      border: 1px solid #ddd;
+      padding: 12rem;
+      margin-top: 2rem;
+      font-family: var(--font-mono);
+      font-size: 1.2rem;
+      white-space: pre-wrap;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-title">
+    <h1>blackbox_01</h1>
+  </div>
+
+  <section class="section">
+    <h2>ad identity trace</h2>
+    <p>This interface will attempt to surface the categorical assumptions Facebook’s ad systems make about you. Based on inferred interests, interactions, and tracking data, this trace will reflect how you are profiled for microtargeting purposes.</p>
+    <div class="content-box">
+      coming soon — once identity is confirmed via Facebook Ad API, this space will reveal inferred targeting categories associated with your profile.
+    </div>
+  </section>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>blackbox_03 — parsing obfuscation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --accent: #3c3c3c;
+      --highlight: #000000;
+      --gray-line: #e0e0e0;
+      --font-sans: 'Space Grotesk', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      margin: 0;
+      padding: 6rem 2rem 4rem;
+    }
+
+    .floating-title {
+      position: fixed;
+      top: 1rem;
+      right: 2rem;
+      z-index: 1000;
+      pointer-events: none;
+      background-color: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(4px);
+      padding: 0.5rem 1rem;
+    }
+
+    .floating-title h1 {
+      font-family: var(--font-mono);
+      font-size: 1.75rem;
+      letter-spacing: 0.05em;
+      text-transform: lowercase;
+      margin: 0;
+      color: var(--highlight);
+    }
+
+    .section {
+      margin-bottom: 5rem;
+    }
+
+    h2, h3 {
+      font-family: var(--font-mono);
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      color: var(--highlight);
+      border-bottom: 1px solid var(--gray-line);
+      padding-bottom: 0.4rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+      max-width: 700px;
+    }
+
+    .tos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .tos-box {
+      border: 1px solid var(--gray-line);
+      padding: 1rem;
+      background: #fafafa;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      line-height: 1.4;
+      cursor: pointer;
+    }
+    .tos-box a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .code-ide {
+      background-color: #0d0d0d;
+      color: #d6d6d6;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      padding: 2rem;
+      margin-top: 3rem;
+      border: 1px solid #222;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      white-space: pre-wrap;
+      overflow-x: auto;
+      min-height: 200px;
+      position: relative;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      background: #ffffff;
+      animation: blink 1.2s steps(2, start) infinite;
+      height: 1em;
+      vertical-align: text-bottom;
+    }
+
+    @keyframes blink {
+      to { background: transparent; }
+    }
+
+    .code-caption {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: #666;
+      margin-top: 1rem;
+      max-width: 700px;
+    }
+
+    .disclaimer {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: #999;
+      margin-top: 2rem;
+      max-width: 700px;
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-title">
+    <h1>blackbox_03</h1>
+  </div>
+
+  <section class="section">
+    <h2>terms of confusion</h2>
+    <p>Consent by complexity. Clickwrap coercion. What if you never agreed — because you never understood?</p>
+    <div class="tos-grid">
+        <div class="tos-box"><a href="#">Amazon — Terms of Service — Last Updated: 2025</a></div>
+        <div class="tos-box"><a href="#">Meta — Terms of Service — Last Updated: 2025</a></div>
+        <div class="tos-box"><a href="#">TikTok — Terms of Service — Last Updated: 2025</a></div>
+        <div class="tos-box"><a href="#">Instagram — Terms of Service — Last Updated: 2025</a></div>
+        <div class="tos-box"><a href="#">YouTube — Terms of Service — Last Updated: 2025</a></div>
+        <div class="tos-box"><a href="#">Spotify — Terms of Service — Last Updated: 2025</a></div>
+      </div>
+    </section>
+  
+    <section class="section">
+      <h2>execution environment</h2>
+      <p>Aesthetic shell. Behind it: surveillance logic. Click to engage, and the code begins to run.</p>
+      <div class="code-ide" id="ide" contenteditable="true" spellcheck="false"></div>
+      <div class="code-caption">These are real tracking code patterns pulled from Ghostery and DuckDuckGo audits. They simulate analytics behaviors using JavaScript. Sources: ghostery.com, duckduckgo.com.</div>
+      <div class="disclaimer">Note: typing into this shell transmits your input anonymously to lekhasapers@ucsb.edu. Lekha may publish or exhibit fragments from these interactions anonymously as part of an ongoing digital study.</div>
+    </section>
+  
+    <script>
+      const codeLines = [
+        "// Tracks user click + movement — logs to external server (Ghostery)",
+        "document.addEventListener('DOMContentLoaded', () => {",
+        "  const session = { start: Date.now(), clicks: 0, mouseMoved: false };",
+        "  document.addEventListener('click', () => session.clicks++);",
+        "  document.addEventListener('mousemove', () => session.mouseMoved = true);",
+        "  setTimeout(() => {",
+        "    fetch('https://tracker.example.com/log', {",
+        "      method: 'POST',",
+        "      body: JSON.stringify(session)",
+        "    });",
+        "  }, 2000);",
+        "});",
+        "",
+        "// Canvas fingerprinting (DuckDuckGo Tracker Radar)",
+        "fingerprint = getCanvasFingerprint();",
+        "if (fingerprint) {",
+        "  document.cookie = \"trackID=\" + fingerprint + \"; path=/; domain=example.com\";",
+        "  sendFingerprint(fingerprint);",
+        "}",
+        "",
+        "// Simple image beacon used for AdTech pageview tracking (Ghostery)",
+        "const adBeacon = new Image();",
+        "adBeacon.src = 'https://adserver.example.com/track?event=pageview';",
+        "",
+        "// Scroll depth tracking via event listener (Ghostery)",
+        "window.addEventListener('scroll', () => {",
+      "  if (window.scrollY > 250) {",
+      "    fetch('/track-scroll-depth', { method: 'POST' });",
+      "  }",
+      "});",
+      "",
+      "// Tracks time-on-page and referrer to analytics endpoint",
+      "setTimeout(() => {",
+      "  fetch('https://metrics.example.com/time', {",
+      "    method: 'POST',",
+      "    body: JSON.stringify({ ref: document.referrer, duration: performance.now() })",
+      "  });",
+      "}, 5000);"
+    ];
+
+    const ide = document.getElementById("ide");
+    let lineIndex = 0;
+    let hasTyped = false;
+
+    function typeNextLine() {
+      if (lineIndex < codeLines.length) {
+        const line = document.createElement("div");
+        line.textContent = codeLines[lineIndex];
+        ide.appendChild(line);
+        lineIndex++;
+        setTimeout(typeNextLine, 1000);
+      } else {
+        const cursor = document.createElement("span");
+        cursor.classList.add("cursor");
+        ide.appendChild(cursor);
+      }
+    }
+
+    window.addEventListener("click", () => {
+      if (!lineIndex) typeNextLine();
+    });
+
+    ide.addEventListener("input", () => {
+      if (!hasTyped) {
+        hasTyped = true;
+        const userText = ide.innerText.trim();
+        if (userText.length > 0) {
+          fetch("https://formspree.io/f/mwkgqopg", {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message: userText })
+          });
+        }
+      }
+    });
+  </script>
+</body>
+</html>

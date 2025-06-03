@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>blackbox_04 — livefeed + archive</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk&family=IBM+Plex+Mono&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --accent: #cfc3f9;
+      --font-sans: 'Space Grotesk', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+    body {
+      margin: 0;
+      padding: 6rem 2rem 4rem;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+    }
+    .floating-title {
+      position: fixed;
+      top: 1rem;
+      right: 2rem;
+      z-index: 1000;
+      pointer-events: none;
+      background-color: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(4px);
+      padding: 0.5rem 1rem;
+    }
+    .floating-title h1 {
+      font-family: var(--font-mono);
+      font-size: 1.75rem;
+      margin: 0;
+      text-transform: lowercase;
+    }
+    h2 {
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.4rem;
+    }
+    .carousel-wrapper {
+      overflow-x: auto;
+      white-space: nowrap;
+      scroll-behavior: smooth;
+      margin-top: 2rem;
+    }
+    .carousel {
+      display: inline-flex;
+      gap: 1rem;
+    }
+    .entry {
+      background: #f7f7f7;
+      border-left: 3px solid var(--accent);
+      padding: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      width: 300px;
+      display: inline-block;
+      white-space: normal;
+      vertical-align: top;
+    }
+    #input-form {
+      margin-top: 4rem;
+      max-width: 700px;
+    }
+    #input-form textarea {
+      width: 100%;
+      height: 120px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      background: #fff;
+      color: #000;
+    }
+    #input-form button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      font-family: var(--font-mono);
+      background: #000;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    .archive-section {
+      margin-top: 6rem;
+    }
+    .archive-section ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .archive-section li {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      padding: 0.25rem 0;
+      border-bottom: 1px solid #eee;
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-title"><h1>blackbox_04</h1></div>
+
+  <section>
+    <h2>livefeed: intercepted fragments</h2>
+    <p style="font-family: var(--font-mono); font-size: 0.85rem; color: #444;">A stream of recent Reddit and YouTube posts on digital society, updated every 2 minutes. New data scrolls horizontally below. Entries are archived after moderation.</p>
+    <div class="carousel-wrapper">
+      <div class="carousel" id="livefeed">
+        <div class="entry"><strong>Sample Reddit Post</strong><br/><a href="#">https://reddit.com/sample-post</a></div>
+        <div class="entry"><strong>Sample YouTube Video</strong><br/><a href="#">https://youtube.com/sample-video</a></div>
+      </div>
+    </div>
+
+    <form id="input-form">
+      <textarea placeholder="submit a fragment (to be reviewed before public display)"></textarea>
+      <button type="submit">submit</button>
+    </form>
+  </section>
+
+  <section class="archive-section" id="archive">
+    <h2>archive index</h2>
+    <ul id="archive-list"></ul>
+  </section>
+
+  <script>
+    const form = document.getElementById('input-form');
+    const textarea = form.querySelector('textarea');
+    const archiveList = document.getElementById('archive-list');
+
+    const entries = [];
+
+    function renderArchive() {
+      archiveList.innerHTML = '';
+      entries.forEach(entry => {
+        const li = document.createElement('li');
+        li.textContent = entry;
+        archiveList.appendChild(li);
+      });
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const message = textarea.value.trim();
+      if (!message) return;
+
+      fetch("https://formsubmit.co/ajax/lekhasapers@ucsb.edu", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({ message })
+      }).then(() => {
+        textarea.value = '';
+        alert("Submitted. Pending curator approval before archival.");
+      }).catch(() => {
+        alert("Error. Try again later.");
+      });
+    });
+
+    renderArchive();
+  </script>
+</body>
+</html>

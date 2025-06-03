@@ -1,0 +1,154 @@
+ <!--media autonomy and tech--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>blackbox_01 — autonomy & technology</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --accent: #3c3c3c;
+      --highlight: #000000;
+      --line: #cccccc;
+      --font-sans: 'Space Grotesk', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      margin: 0;
+      padding: 6rem 2rem 4rem;
+    }
+
+    .floating-title {
+      position: fixed;
+      top: 1rem;
+      right: 2rem;
+      z-index: 1000;
+      pointer-events: none;
+      background-color: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(4px);
+      padding: 0.5rem 1rem;
+    }
+
+    .floating-title h1 {
+      font-family: var(--font-mono);
+      font-size: 1.75rem;
+      letter-spacing: 0.05em;
+      text-transform: lowercase;
+      margin: 0;
+      color: var(--highlight);
+    }
+
+    .section {
+      margin-bottom: 5rem;
+    }
+
+    h2, h3 {
+      font-family: var(--font-mono);
+      margin-bottom: 0.5rem;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 0.25rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      color: var(--highlight);
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      margin-top: 3.5rem;
+      color: var(--accent);
+    }
+    p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+      max-width: 700px;
+      font-family: var(--font-mono);
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 1.5rem;
+    }
+
+    li {
+      margin-bottom: 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    em.blurb {
+      display: block;
+      margin-top: 0.25rem;
+      color: #555;
+      font-style: italic;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      max-width: 650px;
+    }
+
+    @media screen and (max-width: 600px) {
+      body {
+        padding: 5rem 1rem 2rem;
+      }
+      .floating-title {
+        top: 0.5rem;
+        right: 1rem;
+      }
+      .floating-title h1 {
+        font-size: 1.5rem;
+      }
+    }
+</style>
+</head>
+<body>
+
+  <div class="floating-title">
+    <h1>blackbox_01</h1>
+  </div>
+
+  <section class="section">
+    <h2>// Autonomy & Technology</h2>
+    <p>Essays, fragments, and references interrogating autonomy in the age of digital architectures. Bodies, identities, decisions — all contingent on invisible scripts and control systems.</p>
+  </section>
+
+  <section class="section">
+    <h3>Personal Works</h3>
+    <ul>
+      <li>[ lekha sapers, 2024. “Bleeding Consent: on opt-ins, opacity, and sexual telemetry” ]<em class="blurb">Lorem ipsum dolor sit amet, subversively untangling the violence of interfaces cloaked in consent.</em></li>
+      <li>[ lekha sapers, 2025. “Sovereign Skin: biometric identity and refusal” ]<em class="blurb">Quis custodiet ipsos custodes? A work that speaks to bodies coded into compliance.</em></li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h3>Selected Writings</h3>
+    <ul>
+      <li>[ kate crawford, “The Anatomy of an AI System” ]<em class="blurb">From supply chain to soul extraction — a forensic look into Amazon’s echo.</em></li>
+      <li>[ m. beatrice fazi, “Contingent Computation” ]<em class="blurb">Hauntingly technical. Meditations on algorithms, logic, and life.</em></li>
+      <li>[ jackie wang, “Carceral Capitalism” — excerpts on predictive policing ]<em class="blurb">Rhythmic resistance against computation as a tool of racial discipline.</em></li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h3>Artifacts & Objects</h3>
+    <ul>
+      <li>[ sam lavigne, “White Collar Crime Zones” — parody dataset ]<em class="blurb">Aesthetic subversion meets data ethics — maps of fictional crime, real critique.</em></li>
+      <li>[ leaked Clearview AI investor pitch deck (2020) ]<em class="blurb">PowerPoint as evidence. A document of ambition veiled in surveillance logic.</em></li>
+      <li>[ metadata from unknown protester’s smartphone dump ]<em class="blurb">Unclaimed. Unforgiving. The trace residue of autonomy in revolt.</em></li>
+    </ul>
+  </section>
+
+</body>
+</html>
+
