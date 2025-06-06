@@ -11,7 +11,9 @@ console.log('Loaded FB_ACCESS_TOKEN:', TOKEN);
 
 if (!TOKEN) {
   console.error('Error: FB_ACCESS_TOKEN not set in .env');
-  process.exit(1);
+  if (require.main === module) {
+    process.exit(1);
+  }
 }
 
 // Serve static front-end files from "public/"
@@ -82,5 +84,11 @@ app.get('/api/scrape-targeted-ads', async (req, res) => {
   }
 });
 
-// Start the server
-app.listen(PORT, () => console.log(`Server listening on http://localhost:${PORT}`));
+// Start the server when run directly
+if (require.main === module) {
+  app.listen(PORT, () =>
+    console.log(`Server listening on http://localhost:${PORT}`)
+  );
+}
+
+module.exports = app;
