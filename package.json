@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node server.js"
   },
   "keywords": [],
@@ -13,5 +13,10 @@
   "dependencies": {
     "dotenv": "^16.5.0",
     "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "supertest": "^6.3.3",
+    "nock": "^13.3.0"
   }
 }
